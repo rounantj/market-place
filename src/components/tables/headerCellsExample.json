@@ -1,0 +1,38 @@
+[
+    {
+      "id": "id",
+      "numeric": true,
+      "disablePadding": true,
+      "label": "ID"
+    },
+    {
+      "id": "first_name",
+      "numeric": false,
+      "disablePadding": false,
+      "label": "Primeiro Nome"
+    },
+    {
+      "id": "last_name",
+      "numeric": false,
+      "disablePadding": false,
+      "label": "Segundo Nome"
+    },
+    {
+      "id": "email",
+      "numeric": false,
+      "disablePadding": false,
+      "label": "Email"
+    },
+    {
+      "id": "gender",
+      "numeric": false,
+      "disablePadding": false,
+      "label": "Gênero"
+    },
+    {
+      "id": "ip_address",
+      "numeric": false,
+      "disablePadding": false,
+      "label": "Endereço IP"
+    }
+  ]
