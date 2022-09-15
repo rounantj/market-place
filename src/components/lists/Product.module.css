@@ -1,0 +1,7 @@
+.itemProduct{
+    transition:  0.5s;
+}
+.itemProduct:hover {
+   background-color: lightgreen;
+   font-weight: bold;
+}

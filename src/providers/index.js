@@ -1,12 +1,5 @@
+import axios from 'axios'
 
-import axios from "axios"
-import https from "https"
-
-const dotenv = require('dotenv').config()
-
-axios.defaults.httpAgent = new https.Agent({
-    rejectUnauthorized : true
+export const RebootApi = axios.create({
+  baseURL: 'http://localhost:1009/api/v1',
 })
-export const Api = axios.create({
-    baseURL: process.env.API_URL
-});
