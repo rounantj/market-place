@@ -29,6 +29,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 import Products from '../../components/containers/products'
 import AcordeonData from '../../components/tables/acordeon'
+import Login from '../login'
 
 const drawerWidth = 240
 
@@ -80,7 +81,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function App() {
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
-  const contents = ['Produtos', 'Vendas', 'Checkout']
+  const contents = ['Produtos', 'Login', 'Vendas', 'Checkout']
   const [contentShow, setContentShow] = React.useState('Checkout')
 
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -111,7 +112,7 @@ export default function App() {
   React.useEffect(() => {
     let token = sessionStorage.getItem('userToken')
     if (!token) {
-      window.location.replace('/login')
+      setContentShow('Login')
     }
   }, [])
   return (
@@ -253,6 +254,10 @@ export default function App() {
         ) : contentShow === 'Checkout' ? (
           <div>
             <Checkout />
+          </div>
+        ) : contentShow === 'Login' ? (
+          <div>
+            <Login />
           </div>
         ) : (
           <h1>Not found</h1>

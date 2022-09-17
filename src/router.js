@@ -7,7 +7,6 @@ export default function Router({ user, setUser }) {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Main />} />
       </Routes>
     </BrowserRouter>
