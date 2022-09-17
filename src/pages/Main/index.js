@@ -30,6 +30,7 @@ import FormGroup from '@mui/material/FormGroup'
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 import Products from '../../components/containers/products'
+import AcordeonData from '../../components/tables/acordeon'
 
 const drawerWidth = 240
 
@@ -81,8 +82,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function App() {
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
-  const contents = ['Indicadores', 'Produtos', 'Vendas', 'Checkout']
-  const [contentShow, setContentShow] = React.useState('Indicadores')
+  const contents = ['Indicadores', 'Produtos', 'Vendas', 'Clientes', 'Checkout']
+  const [contentShow, setContentShow] = React.useState('Produtos')
 
   const [auth, setAuth] = React.useState(true)
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -97,6 +98,10 @@ export default function App() {
 
   const handleClose = () => {
     setAnchorEl(null)
+  }
+  const handleExit = () => {
+    sessionStorage.clear()
+    window.location.reload()
   }
 
   const handleDrawerOpen = () => {
@@ -171,7 +176,7 @@ export default function App() {
               onClose={handleClose}
             >
               <MenuItem onClick={handleClose}>Minha Conta</MenuItem>
-              <MenuItem onClick={handleClose}>Sair</MenuItem>
+              <MenuItem onClick={handleExit}>Sair</MenuItem>
             </Menu>
           </div>
         </Toolbar>
@@ -218,7 +223,7 @@ export default function App() {
         </List>
         <Divider />
         <List>
-          {['Configurações', 'Minha Conta'].map((text, index) => (
+          {[].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
@@ -238,7 +243,7 @@ export default function App() {
         {contentShow === 'Vendas' ? (
           <div>
             <h1>{contentShow}</h1>
-            <RebootTable rows={rows} headCells={headCells} />
+            <AcordeonData />
           </div>
         ) : contentShow === 'Produtos' ? (
           <>

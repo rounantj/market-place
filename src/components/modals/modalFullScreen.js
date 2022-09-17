@@ -13,49 +13,52 @@ import CloseIcon from '@mui/icons-material/Close'
 import Slide from '@mui/material/Slide'
 import SearchInput from '../inputs/SearchInput'
 import { Avatar } from '@mui/material'
+import { API } from '../../hooks'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
 })
 
 export default function ModalFullScreen({ open, handleClose }) {
-  const [list, setList] = React.useState([
-    {
-      name: 'Primeiro produto da lista',
-      price: 25.0,
-      description: 'Produto inovador que só encontra em minha loja',
-    },
-    {
-      name: 'Primeiro produto da lista',
-      price: 25.0,
-      description: 'Produto inovador que só encontra em minha loja',
-    },
-    {
-      name: 'Primeiro produto da lista',
-      price: 25.0,
-      description: 'Produto inovador que só encontra em minha loja',
-    },
-    {
-      name: 'Primeiro produto da lista',
-      price: 25.0,
-      description: 'Produto inovador que só encontra em minha loja',
-    },
-    {
-      name: 'Primeiro produto da lista',
-      price: 25.0,
-      description: 'Produto inovador que só encontra em minha loja',
-    },
-    {
-      name: 'Primeiro produto da lista',
-      price: 25.0,
-      description: 'Produto inovador que só encontra em minha loja',
-    },
-    {
-      name: 'Primeiro produto da lista',
-      price: 25.0,
-      description: 'Produto inovador que só encontra em minha loja',
-    },
-  ])
+  const [productList, setProductList] = React.useState()
+  const [list, setList] = React.useState([])
+
+  let api = new API()
+  React.useEffect(() => {
+    api.config(
+      sessionStorage.getItem('companyId'),
+      sessionStorage.getItem('userToken')
+    )
+    getProductList()
+  }, [])
+
+  async function getProductList() {
+    const data = await api.getProducts()
+    console.log(data)
+    setProductList(data.data.products)
+    setList(data.data.products)
+    console.log(data)
+  }
+
+  async function search(keyword) {
+    keyword = keyword.toLowerCase()
+    setList(
+      productList.filter(
+        (prd) =>
+          prd.name.toLowerCase().indexOf(keyword) > -1 ||
+          prd.ean.toLowerCase().indexOf(keyword) > -1 ||
+          prd.picture.toLowerCase().indexOf(keyword) > -1
+      )
+    )
+  }
+
+  React.useEffect(() => {
+    console.log('productList', productList)
+  }, [productList])
+
+  const buscar = (e) => {
+    search(e.target.value)
+  }
   return (
     <div>
       <Dialog
@@ -84,6 +87,7 @@ export default function ModalFullScreen({ open, handleClose }) {
               component="div"
             >
               <input
+                onKeyUp={buscar}
                 style={{
                   width: '100%',
                   fontSize: '1.8rem',
@@ -102,8 +106,8 @@ export default function ModalFullScreen({ open, handleClose }) {
           </Toolbar>
         </AppBar>
         <List>
-          {list.map((l) => (
-            <>
+          {list.map((l, index) => (
+            <div key={index}>
               <ListItem button>
                 <Avatar
                   alt={l.name}
@@ -111,10 +115,10 @@ export default function ModalFullScreen({ open, handleClose }) {
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_n4wS-6wJRXXHUJ-r7N4VOfSaEjVMqdtquw&usqp=CAU'
                   }
                 ></Avatar>
-                <ListItemText primary={l.name} secondary={l.description} />
+                <ListItemText primary={l.value} secondary={l.ean} />
               </ListItem>
               <Divider />
-            </>
+            </div>
           ))}
         </List>
       </Dialog>

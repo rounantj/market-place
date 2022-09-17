@@ -21,8 +21,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Checkout() {
   const [openModal, setOpenModal] = React.useState(false)
-  const [produto, setProduto] = React.useState({})
+  const [produto, setProduto] = React.useState({
+    name: '',
+    value: 0,
+    picture: '12.png',
+    ean: 'XXXXXXXXXXXXXXXXX',
+    estoque: 0,
+  })
   const [quantidade, setQuantidade] = React.useState(1)
+  const [orderList, setOrderList] = React.useState([])
 
   const handleClickOpen = () => {
     setOpenModal(true)
@@ -50,47 +57,20 @@ export default function Checkout() {
         <Grid xs={6} md={6}>
           <Item style={{ minHeight: '65vh' }}>
             <ProductCard
+              product={produto}
               setQuantidade={setQuantidade}
               quantidade={quantidade}
             />
-            <BarcodeSearch textHelper={'CÓDIGO DE BARRAS'} />
+            <BarcodeSearch
+              setProduct={setProduto}
+              textHelper={'CÓDIGO DE BARRAS'}
+            />
           </Item>
         </Grid>
         <Grid xs={6} md={6}>
           <Item style={{ minHeight: '65vh', background: '#fbfbec' }}>
             <h3>CUPON NÃO FISCAL</h3>
-            <CheckboxList
-              listData={[
-                {
-                  name: 'Produto 01',
-                  total: 1,
-                  medida: 'pt',
-                  value: 2.5,
-                  id: 1,
-                },
-                {
-                  name: 'Produto 01',
-                  total: 1,
-                  medida: 'pt',
-                  value: 2.5,
-                  id: 2,
-                },
-                {
-                  name: 'Produto 01',
-                  total: 1,
-                  medida: 'pt',
-                  value: 2.5,
-                  id: 3,
-                },
-                {
-                  name: 'Produto 01',
-                  total: 1,
-                  medida: 'pt',
-                  value: 2.5,
-                  id: 4,
-                },
-              ]}
-            />
+            <CheckboxList listData={orderList} />
           </Item>
         </Grid>
         <Grid xs={6} md={8}>

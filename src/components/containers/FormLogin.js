@@ -44,8 +44,11 @@ export default function FormLogin() {
         console.log(response)
         setLoading(false)
         if (response.status === 200) {
+          console.log(response)
           alertar('success', 'Login bem sucedido!')
           sessionStorage.setItem('userToken', response.data.token)
+          sessionStorage.setItem('companyId', response.data.user.companyId)
+
           setTimeout(() => {
             window.location.replace('/')
           }, 1000)

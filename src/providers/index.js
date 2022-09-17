@@ -1,5 +1,6 @@
 import axios from 'axios'
+import ENVs from './env.json'
 
 export const RebootApi = axios.create({
-  baseURL: 'http://localhost:1009/api/v1',
+  baseURL: ENVs.API_URL,
 })

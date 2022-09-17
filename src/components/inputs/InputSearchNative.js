@@ -11,8 +11,12 @@ export default function InputSearchNative({
   textHelper,
   style,
   placeholder,
+  onKeyUp,
   type = 'text',
 }) {
+  const fn = (e) => {
+    onKeyUp(e.target.value)
+  }
   return (
     <Box sx={{ '& > :not(style)': { m: 1 } }} style={{ minWidth: '600px' }}>
       <Box
@@ -21,6 +25,7 @@ export default function InputSearchNative({
       >
         <TextField
           style={{ minWidth: '600px' }}
+          onKeyUp={fn}
           id="input-with-sx"
           label={textHelper}
           placeholder={placeholder}

@@ -6,156 +6,23 @@ import ListItemText from '@mui/material/ListItemText'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
-import { ListItemIcon } from '@mui/material'
+import { Button, ListItemIcon } from '@mui/material'
 import styles from './Product.module.css'
+import ENVs from '../../providers/env.json'
 
-export default function ProductList({ handleModal }) {
-  const listData = [
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 1,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 2,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 3,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 4,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 5,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 6,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 7,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 8,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 9,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 10,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 1,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 2,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 3,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 4,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 5,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 6,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 7,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 8,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 9,
-    },
-    {
-      name: 'Produto 01',
-      total: 1,
-      medida: 'pt',
-      value: 2.5,
-      id: 10,
-    },
-  ]
+export default function ProductList({
+  handleModal,
+  listDataNew,
+  reactiveProduct,
+}) {
+  if (!listDataNew) {
+    listDataNew = []
+  }
 
   function setViewModal(product) {
     console.log('Teste de click')
     window.scrollTo(0, 0)
+    console.log('lista', handleModal, product)
     handleModal(product)
   }
   return (
@@ -165,7 +32,7 @@ export default function ProductList({ handleModal }) {
           <Avatar
             style={{ opacity: '0' }}
             alt="Remy Sharp"
-            src="/static/images/avatar/1.jpg"
+            src={`${ENVs.IMAGES_REPO}images/dois.jpg`}
           />
         </ListItemAvatar>
         <ListItemText
@@ -173,7 +40,7 @@ export default function ProductList({ handleModal }) {
           primary="Descrição do produto"
         />
         <ListItemText style={{ minWidth: '100px', textAlign: 'right' }}>
-          <span>Medida</span>
+          <span>Código de Barras</span>
         </ListItemText>
         <ListItemText style={{ minWidth: '100px', textAlign: 'right' }}>
           <span>Estoque</span>
@@ -182,19 +49,22 @@ export default function ProductList({ handleModal }) {
           <span>Valor</span>
         </ListItemText>
       </ListItem>
-      {listData.map((item) => (
+      {listDataNew.map((item) => (
         <div>
           <ListItem
+            disabled={!item.status}
             onDoubleClick={() => setViewModal(item)}
             key={item.id}
             style={{ cursor: 'pointer' }}
             alignItems="flex-start"
-            className={styles.itemProduct}
+            className={`${styles.itemProduct} ${
+              item.status === 0 ? styles.inativo : ''
+            }`}
           >
             <ListItemAvatar>
               <Avatar
                 alt={item.name}
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_n4wS-6wJRXXHUJ-r7N4VOfSaEjVMqdtquw&usqp=CAU"
+                src={`${ENVs.IMAGES_REPO}${item.picture}`}
               />
             </ListItemAvatar>
             <ListItemText
@@ -206,22 +76,36 @@ export default function ProductList({ handleModal }) {
                     sx={{ display: 'inline' }}
                     component="span"
                     variant="body2"
-                    color="text.primary"
+                    color={`${item.status === 0 ? 'red' : 'text.primary'}`}
                   >
-                    Ali Connors
+                    {item.status === 1 ? 'PRODUTO ATIVO' : 'PRODUTO DESATIVADO'}
                   </Typography>
-                  {item.name}
+                  {'  '}
+                  {item.ean}
+                  {'  '}{' '}
+                  {item.status === 0 ? (
+                    <Button
+                      variant="outlined"
+                      onClick={() => reactiveProduct(item)}
+                      color="success"
+                    >
+                      REATIVAR PRODUTO
+                    </Button>
+                  ) : (
+                    <></>
+                  )}
                 </React.Fragment>
               }
             />
+
             <ListItemText style={{ minWidth: '100px', textAlign: 'right' }}>
-              <span>{item.medida}</span>
+              <span>{item.ean}</span>
             </ListItemText>
             <ListItemText style={{ minWidth: '100px', textAlign: 'right' }}>
-              <span>{item.total}</span>
+              <span>{item.estoque} Un</span>
             </ListItemText>
             <ListItemText style={{ minWidth: '100px', textAlign: 'right' }}>
-              <span>R$ </span> <span>{item.value}</span>
+              <span>R$ </span> <span>{item.value.toFixed(2)}</span>
             </ListItemText>
           </ListItem>
           <Divider />

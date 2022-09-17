@@ -8,40 +8,43 @@ import Typography from '@mui/material/Typography'
 import AddButton from '../buttons/addButton'
 import InputAdd from '../inputs/InputAdd'
 
-export default function ProductCard({
-  name,
-  price,
-  dedscription,
-  setQuantidade,
-  quantidade,
-}) {
+export default function ProductCard({ product, quantidade, setQuantidade }) {
+  React.useEffect(() => {
+    console.log(product)
+  }, [])
   return (
-    <Card style={{ margin: '20px auto' }} sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="240"
-        image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_n4wS-6wJRXXHUJ-r7N4VOfSaEjVMqdtquw&usqp=CAU"
-        alt="green iguana"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Whey Protein
-        </Typography>
+    <>
+      {product ? (
+        <Card style={{ margin: '20px auto' }} sx={{ maxWidth: 345 }}>
+          <CardMedia
+            component="img"
+            height="240"
+            image={product.picture}
+            alt={product.name}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {product.name}
+            </Typography>
 
-        <Typography variant="body2" color="text.secondary">
-          Description of my product, and more pertinents infos
-        </Typography>
-        <Typography gutterBottom variant="h3" component="div">
-          R${' '}
-          <span style={{ color: 'black' }}>
-            {(20.0).toFixed(2).toLocaleString()}
-          </span>
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <InputAdd setQuantidade={setQuantidade} quantidade={quantidade} />
-        <AddButton />
-      </CardActions>
-    </Card>
+            <Typography variant="body2" color="text.secondary">
+              {product.ean}, {product.estoque} Un no estoque.
+            </Typography>
+            <Typography gutterBottom variant="h3" component="div">
+              R${' '}
+              <span style={{ color: 'black' }}>
+                {product.value.toFixed(2).toLocaleString()}
+              </span>
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <InputAdd setQuantidade={setQuantidade} quantidade={quantidade} />
+            <AddButton />
+          </CardActions>
+        </Card>
+      ) : (
+        <></>
+      )}
+    </>
   )
 }
