@@ -4,18 +4,15 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import dataTest from './dataExampleSells.json'
-import ProductList from '../lists/productList'
+
 import { Stack } from '@mui/system'
 import { API } from '../../hooks'
 import ProductListOrder from '../lists/productListOrder'
 
 import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
+
 import Paper from '@mui/material/Paper'
-import Grid from '@mui/material/Unstable_Grid2'
 import { Divider } from '@mui/material'
-import { useGridApiEventHandler } from '@mui/x-data-grid'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
