@@ -2,7 +2,6 @@ import { Divider } from '@mui/material'
 import React, { useState } from 'react'
 import { FilledInput } from '@mui/material'
 import { API } from '../../hooks'
-import ENVs from '../../providers/env.json'
 
 export default function InputFileReboot({ nameImage, setPicture }) {
   const [name, setName] = useState(nameImage)

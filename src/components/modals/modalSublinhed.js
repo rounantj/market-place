@@ -8,36 +8,20 @@ import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import Input from '@mui/material/Input'
 import InputLabel from '@mui/material/InputLabel'
-import OutlinedInput from '@mui/material/OutlinedInput'
 import { Button, Divider, Paper } from '@mui/material'
-import Grid from '@mui/material/Unstable_Grid2'
+
 import Stack from '@mui/material/Stack'
-import CircularProgress from '@mui/material/CircularProgress'
-import { RebootApi } from '../../providers'
-import RebootAlert from '../modals/alert'
-import { AirlineSeatLegroomExtraTwoTone } from '@mui/icons-material'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import DeleteIcon from '@mui/icons-material/Delete'
-import SendIcon from '@mui/icons-material/Send'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import TextField from '@mui/material/TextField'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
+
 import CancelIcon from '@mui/icons-material/Cancel'
 import SaveAsIcon from '@mui/icons-material/SaveAs'
 import ViewWeekIcon from '@mui/icons-material/ViewWeek'
 import InputFileReboot from '../inputs/FIle'
 import ENVs from '../../providers/env.json'
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'right',
-  alignItems: 'right',
-  color: theme.palette.text.secondary,
-}))
 
 export default function SublinhedModal({
   handleModal,
@@ -106,10 +90,6 @@ export default function SublinhedModal({
       ...thisProduct,
       picture: e,
     })
-  }
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value })
   }
 
   const handleClickShowPassword = () => {

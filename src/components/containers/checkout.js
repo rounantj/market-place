@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Unstable_Grid2'
 import CheckboxList from '../lists/list'
-import SearchInput from '../inputs/SearchInput'
+
 import ProductCard from './card'
 import BarcodeSearch from '../inputs/BarcodeSearch'
 import SearchButton from '../buttons/searchButton'
@@ -148,7 +148,7 @@ export default function Checkout() {
       sessionStorage.getItem('userToken')
     )
     setApi(api2)
-  }, [])
+  })
 
   React.useEffect(() => {
     console.log('mudou quantidade', quantidade)

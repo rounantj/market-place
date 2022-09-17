@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import MuiAppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import List from '@mui/material/List'
-import Typography from '@mui/material/Typography'
+
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -24,9 +24,7 @@ import rows from '../../components/tables/dataExample.json'
 import Checkout from '../../components/containers/checkout'
 
 import AccountCircle from '@mui/icons-material/AccountCircle'
-import Switch from '@mui/material/Switch'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormGroup from '@mui/material/FormGroup'
+
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 import Products from '../../components/containers/products'
@@ -85,12 +83,7 @@ export default function App() {
   const contents = ['Produtos', 'Vendas', 'Checkout']
   const [contentShow, setContentShow] = React.useState('Checkout')
 
-  const [auth, setAuth] = React.useState(true)
   const [anchorEl, setAnchorEl] = React.useState(null)
-
-  const handleChange = (event) => {
-    setAuth(event.target.checked)
-  }
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)

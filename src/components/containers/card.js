@@ -3,7 +3,7 @@ import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import Button from '@mui/material/Button'
+
 import Typography from '@mui/material/Typography'
 import AddButton from '../buttons/addButton'
 import InputAdd from '../inputs/InputAdd'
@@ -17,11 +17,8 @@ export default function ProductCard({
 }) {
   React.useEffect(() => {
     console.log(product)
-  }, [])
-  async function Go() {
-    console.log('mandando')
-    await addToList()
-  }
+  }, [product])
+
   async function mudaQtd(valor) {
     console.log(valor)
     if (valor < 1) {

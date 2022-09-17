@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
-import { Button, ListItemIcon } from '@mui/material'
+import { Button } from '@mui/material'
 import styles from './Product.module.css'
 import ENVs from '../../providers/env.json'
 
