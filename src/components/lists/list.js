@@ -10,8 +10,8 @@ import CommentIcon from '@mui/icons-material/Comment'
 import Button from '@mui/material/Button'
 import DeleteIcon from '@mui/icons-material/Delete'
 
-export default function CheckboxList({ listData }) {
-  const [checked, setChecked] = React.useState([0])
+export default function CheckboxList({ listData, removeItems }) {
+  const [checked, setChecked] = React.useState([])
 
   const handleToggle = (value) => async () => {
     const currentIndex = checked.indexOf(value)
@@ -26,15 +26,25 @@ export default function CheckboxList({ listData }) {
     await setChecked(newChecked)
   }
 
+  async function remove() {
+    await removeItems(checked)
+    setChecked([])
+  }
+
   React.useEffect(() => {
-    console.log(checked)
+    console.log('cheked', checked)
   }, [checked])
 
   return (
     <>
-      {checked.length > 1 ? (
-        <Button color="error" variant="outlined" startIcon={<DeleteIcon />}>
-          Remover {checked.length - 1} produtos selecionados
+      {checked.length > 0 ? (
+        <Button
+          onClick={() => remove()}
+          color="error"
+          variant="outlined"
+          startIcon={<DeleteIcon />}
+        >
+          Remover {checked.length} produtos selecionados
         </Button>
       ) : (
         <></>
@@ -60,12 +70,14 @@ export default function CheckboxList({ listData }) {
                 <IconButton edge="end" aria-label="comments">
                   <ListItemText
                     id={labelId}
-                    primary={`${item.total}${item.medida}`}
+                    primary={`${item.quantidade} Un`}
                   />
                   <ListItemText id={labelId} primary={`.............`} />
                   <ListItemText
                     id={labelId}
-                    primary={`R$ ${item.value.toFixed(2).toLocaleString()}`}
+                    primary={`R$ ${(item.quantidade * item.value)
+                      .toFixed(2)
+                      .toLocaleString()}`}
                   />
                 </IconButton>
               }
@@ -85,7 +97,11 @@ export default function CheckboxList({ listData }) {
                     inputProps={{ 'aria-labelledby': labelId }}
                   />
                 </ListItemIcon>
-                <ListItemText id={labelId} primary={`${item.name}`} />
+                <ListItemText
+                  style={{ maxWidth: '50%' }}
+                  id={labelId}
+                  primary={`${item.name}`}
+                />
               </ListItemButton>
             </ListItem>
           )

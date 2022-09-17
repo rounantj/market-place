@@ -8,7 +8,7 @@ import CheckIcon from '@mui/icons-material/Check'
 import SaveIcon from '@mui/icons-material/Save'
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn'
 
-export default function CircularIntegration() {
+export default function CircularIntegration({ finish }) {
   const [loading, setLoading] = React.useState(false)
   const [success, setSuccess] = React.useState(false)
   const timer = React.useRef()
@@ -28,14 +28,13 @@ export default function CircularIntegration() {
     }
   }, [])
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     if (!loading) {
       setSuccess(false)
       setLoading(true)
-      timer.current = window.setTimeout(() => {
-        setSuccess(true)
-        setLoading(false)
-      }, 2000)
+      await finish()
+      setSuccess(true)
+      setLoading(false)
     }
   }
 

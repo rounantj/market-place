@@ -14,12 +14,13 @@ import Slide from '@mui/material/Slide'
 import SearchInput from '../inputs/SearchInput'
 import { Avatar } from '@mui/material'
 import { API } from '../../hooks'
+import ENVs from '../../providers/env.json'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
 })
 
-export default function ModalFullScreen({ open, handleClose }) {
+export default function ModalFullScreen({ open, handleClose, setProduto }) {
   const [productList, setProductList] = React.useState()
   const [list, setList] = React.useState([])
 
@@ -58,6 +59,11 @@ export default function ModalFullScreen({ open, handleClose }) {
 
   const buscar = (e) => {
     search(e.target.value)
+  }
+
+  async function addAndClose(produto) {
+    await setProduto(produto)
+    handleClose()
   }
   return (
     <div>
@@ -106,16 +112,19 @@ export default function ModalFullScreen({ open, handleClose }) {
           </Toolbar>
         </AppBar>
         <List>
-          {list.map((l, index) => (
-            <div key={index}>
-              <ListItem button>
+          {list.map((l) => (
+            <div key={l.id}>
+              <ListItem onDoubleClick={() => addAndClose(l)} button>
                 <Avatar
                   alt={l.name}
-                  src={
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_n4wS-6wJRXXHUJ-r7N4VOfSaEjVMqdtquw&usqp=CAU'
-                  }
+                  src={`${ENVs.IMAGES_REPO}${l.picture}`}
                 ></Avatar>
-                <ListItemText primary={l.value} secondary={l.ean} />
+                <ListItemText style={{ maxWidth: '50px' }} primary={''} />
+                <ListItemText style={{ maxWidth: '600px' }} primary={l.name} />
+                <ListItemText
+                  primary={`R$ ${l.value.toFixed(2)} `}
+                  secondary={`${l.estoque} un no estoque`}
+                />
               </ListItem>
               <Divider />
             </div>

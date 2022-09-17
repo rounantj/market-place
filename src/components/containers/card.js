@@ -7,11 +7,28 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import AddButton from '../buttons/addButton'
 import InputAdd from '../inputs/InputAdd'
+import ENVs from '../../providers/env.json'
 
-export default function ProductCard({ product, quantidade, setQuantidade }) {
+export default function ProductCard({
+  product,
+  quantidade,
+  setQuantidade,
+  addToList,
+}) {
   React.useEffect(() => {
     console.log(product)
   }, [])
+  async function Go() {
+    console.log('mandando')
+    await addToList()
+  }
+  async function mudaQtd(valor) {
+    console.log(valor)
+    if (valor < 1) {
+      valor = 1
+    }
+    await setQuantidade(valor)
+  }
   return (
     <>
       {product ? (
@@ -19,28 +36,34 @@ export default function ProductCard({ product, quantidade, setQuantidade }) {
           <CardMedia
             component="img"
             height="240"
-            image={product.picture}
+            image={`${ENVs.IMAGES_REPO}${product.picture}`}
             alt={product.name}
           />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {product.name}
-            </Typography>
+          {product.id ? (
+            <>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {product.name}
+                </Typography>
 
-            <Typography variant="body2" color="text.secondary">
-              {product.ean}, {product.estoque} Un no estoque.
-            </Typography>
-            <Typography gutterBottom variant="h3" component="div">
-              R${' '}
-              <span style={{ color: 'black' }}>
-                {product.value.toFixed(2).toLocaleString()}
-              </span>
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <InputAdd setQuantidade={setQuantidade} quantidade={quantidade} />
-            <AddButton />
-          </CardActions>
+                <Typography variant="body2" color="text.secondary">
+                  {product.ean}, {product.estoque} Un no estoque.
+                </Typography>
+                <Typography gutterBottom variant="h3" component="div">
+                  R${' '}
+                  <span style={{ color: 'black' }}>
+                    {product.value.toFixed(2).toLocaleString()}
+                  </span>
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <InputAdd setQuantidade={mudaQtd} quantidade={quantidade} />
+                <AddButton fn={addToList} />
+              </CardActions>
+            </>
+          ) : (
+            <div style={{ minHeight: '300px' }}></div>
+          )}
         </Card>
       ) : (
         <></>

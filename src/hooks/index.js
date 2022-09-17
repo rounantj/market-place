@@ -64,6 +64,7 @@ export class API {
   }
 
   async createOrder(payload) {
+    console.log(payload)
     const result = await RebootApi.post('/order', payload, {
       headers: { authorization: this.token },
     })
@@ -114,9 +115,14 @@ export class API {
     }
   }
 
-  async getProducts(id) {
+  async getProducts(id, ean) {
     if (id) {
       const result = await RebootApi.get('/product/' + id, {
+        headers: { authorization: this.token },
+      })
+      return result
+    } else if (ean) {
+      const result = await RebootApi.get('/product/ean/' + ean, {
         headers: { authorization: this.token },
       })
       return result
