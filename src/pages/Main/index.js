@@ -112,7 +112,7 @@ export default function App() {
   React.useEffect(() => {
     let token = sessionStorage.getItem('userToken')
     if (!token) {
-      setContentShow('Login')
+      window.location.replace('/login')
     }
   }, [])
   return (
@@ -254,10 +254,6 @@ export default function App() {
         ) : contentShow === 'Checkout' ? (
           <div>
             <Checkout />
-          </div>
-        ) : contentShow === 'Login' ? (
-          <div>
-            <Login />
           </div>
         ) : (
           <h1>Not found</h1>
