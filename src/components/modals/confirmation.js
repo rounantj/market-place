@@ -33,10 +33,7 @@ export default function Confirmation({ fecharPedido, cancel, open }) {
       <Dialog open={open} onClose={cancel}>
         <DialogTitle>Finalizar venda</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
+          <DialogContentText>Preencha com o nome do cliente:</DialogContentText>
           <TextField
             onBlur={mudaName}
             autoFocus

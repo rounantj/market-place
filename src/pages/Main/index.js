@@ -81,7 +81,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function App() {
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
-  const contents = ['Produtos', 'Login', 'Vendas', 'Checkout']
+  const contents = ['Produtos', 'Vendas', 'Checkout']
   const [contentShow, setContentShow] = React.useState('Checkout')
 
   const [anchorEl, setAnchorEl] = React.useState(null)
