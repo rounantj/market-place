@@ -81,7 +81,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function App() {
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
-  const contents = ['Produtos', 'Vendas', 'Checkout']
+  const contentsAdmin = ['Produtos', 'Vendas', 'Checkout']
+  const contents = ['Vendas', 'Checkout']
+  const [useContent, setUseContent] = React.useState([])
   const [contentShow, setContentShow] = React.useState('Checkout')
 
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -111,6 +113,16 @@ export default function App() {
 
   React.useEffect(() => {
     let token = sessionStorage.getItem('userToken')
+    let userTxt = sessionStorage.getItem('@user:')
+    let USER = {}
+    if (userTxt) {
+      USER = JSON.parse(userTxt)
+      if (USER.roleId === 3) {
+        setUseContent(contents)
+      } else {
+        setUseContent(contentsAdmin)
+      }
+    }
     if (!token) {
       window.location.replace('Login')
     }
@@ -199,7 +211,7 @@ export default function App() {
         </DrawerHeader>
         <Divider />
         <List>
-          {contents.map((text, index) => (
+          {useContent.map((text, index) => (
             <ListItem
               onClick={() => handleContent(text)}
               key={text}

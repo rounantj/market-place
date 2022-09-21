@@ -46,6 +46,7 @@ export default function FormLogin() {
           console.log(response)
           alertar('success', 'Login bem sucedido!')
           sessionStorage.setItem('userToken', response.data.token)
+          sessionStorage.setItem('@user:', JSON.stringify(response.data.user))
           sessionStorage.setItem('companyId', response.data.user.companyId)
 
           setTimeout(() => {
