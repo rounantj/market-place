@@ -85,6 +85,7 @@ export default function App() {
   const contents = ['Vendas', 'Checkout']
   const [useContent, setUseContent] = React.useState([])
   const [contentShow, setContentShow] = React.useState('Checkout')
+  const [userName, setUserName] = React.useState('System')
 
   const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -122,6 +123,7 @@ export default function App() {
       } else {
         setUseContent(contentsAdmin)
       }
+      setUserName(USER.name)
     }
     if (!token) {
       window.location.replace('Login')
@@ -249,7 +251,7 @@ export default function App() {
         {contentShow === 'Vendas' ? (
           <div>
             <h1>{contentShow}</h1>
-            <AcordeonData />
+            <AcordeonData userName={}/>
           </div>
         ) : contentShow === 'Produtos' ? (
           <>

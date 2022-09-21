@@ -22,7 +22,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }))
 
-export default function AcordeonData() {
+export default function AcordeonData({ userName }) {
   const [expanded, setExpanded] = React.useState(false)
   const [orders, setOrders] = React.useState([])
 
