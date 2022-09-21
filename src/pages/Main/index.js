@@ -251,7 +251,7 @@ export default function App() {
         {contentShow === 'Vendas' ? (
           <div>
             <h1>{contentShow}</h1>
-            <AcordeonData userName={}/>
+            <AcordeonData userName={userName} />
           </div>
         ) : contentShow === 'Produtos' ? (
           <>

@@ -79,7 +79,7 @@ export default function AcordeonData({ userName }) {
     <div>
       <Stack direction={'row'}>
         <Item style={{ minWidth: '33.3%' }}>
-          Usuário: {'Ronan Rodrigues'.toString()}
+          Usuário: {userName.toString()}
         </Item>
         <Item style={{ minWidth: '33.3%' }}>
           Total de pedidos: {orders.length} pedidos <Divider />
