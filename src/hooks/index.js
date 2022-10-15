@@ -78,8 +78,8 @@ export class API {
     return result
   }
 
-  async deleteOrder(payload) {
-    const result = await RebootApi.post('/order', payload, {
+  async deleteOrder(id) {
+    const result = await RebootApi.delete('/order/' + id, {
       headers: { authorization: this.token },
     })
     return result
