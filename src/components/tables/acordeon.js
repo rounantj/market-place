@@ -138,6 +138,7 @@ export default function AcordeonData({ userName }) {
       newOrders.push({
         id: dataOrders[k].id,
         name: dataOrders[k].name,
+        desconto: dataOrders[k].discount,
         totalValue: total,
         date: dataOrders[k].createdAt,
         products: prds,
@@ -193,7 +194,7 @@ export default function AcordeonData({ userName }) {
   function calculateValue(data) {
     let val = 0
     data.map((m) => {
-      val += m.totalValue
+      val += (m.totalValue - m.desconto)
     })
     return val
   }
@@ -344,7 +345,15 @@ export default function AcordeonData({ userName }) {
                             {dt.name}
                           </div>
                           <div style={{ width: '30%' }}>
-                            R$ {dt.totalValue.toFixed(2).toLocaleString()}
+                            {
+                              dt.desconto > 0 ?
+                                <><span style={{ color: 'red', fontSize: '0.7rem' }}>Valor cheio: {dt.totalValue.toFixed(2)} - desconto: {dt.desconto.toFixed(2)}</span><br /></>
+
+                                :
+                                <></>
+                            }
+
+                            R$ {(dt.totalValue - dt.desconto).toFixed(2).toLocaleString()}
                           </div>
                           <div style={{ width: '10%' }}>
                             {moment(dt.date).format('DD/MM/YYYY \n\r HH:mm:ss')}

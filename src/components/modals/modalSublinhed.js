@@ -22,11 +22,14 @@ import SaveAsIcon from '@mui/icons-material/SaveAs'
 import ViewWeekIcon from '@mui/icons-material/ViewWeek'
 import InputFileReboot from '../inputs/FIle'
 import ENVs from '../../providers/env.json'
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import ConfirmationDeleteProduct from './confirmationDeleteProduct'
 
 export default function SublinhedModal({
   handleModal,
   product,
   createProduct,
+  deleteProduct,
   updateProduct,
 }) {
   const rootRef = React.useRef(null)
@@ -48,8 +51,20 @@ export default function SublinhedModal({
       await updateProduct(thisProduct)
     }
   }
+  const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false)
+  async function deleteProductIn() {
+    if (newItem) {
+      handleModal()
+    } else {
+      await deleteProduct({ ...thisProduct })
+    }
+  }
 
-  async function deleteProduct() {
+  function closeModal() {
+    setOpenConfirmDelete(false)
+  }
+
+  async function disableProduct() {
     if (newItem) {
       handleModal()
     } else {
@@ -262,12 +277,20 @@ export default function SublinhedModal({
               style={{
                 paddingTop: '15px',
                 gap: '15px',
-                width: '50%',
+                width: '80%',
                 float: 'right',
               }}
               direction={'row'}
             >
               <br />
+              <Button
+                onClick={() => setOpenConfirmDelete(true)}
+                color={'error'}
+                variant="outlined"
+                startIcon={<DeleteIcon />}
+              >
+                DELETAR
+              </Button>
               <Button
                 color={'warning'}
                 variant="outlined"
@@ -277,13 +300,14 @@ export default function SublinhedModal({
                 CANCELAR
               </Button>
               <Button
-                onClick={deleteProduct}
+                onClick={disableProduct}
                 color={'error'}
                 variant="outlined"
-                startIcon={<DeleteIcon />}
+                startIcon={<RemoveCircleOutlineIcon />}
               >
                 DESATIVAR
               </Button>
+
               <Button
                 onClick={crudProduct}
                 variant="contained"
@@ -297,6 +321,7 @@ export default function SublinhedModal({
       ) : (
         <></>
       )}
+      <ConfirmationDeleteProduct open={openConfirmDelete} product={thisProduct} returnCall={deleteProductIn} cancel={closeModal} />
     </>
   )
 }

@@ -114,13 +114,13 @@ export default function Checkout() {
   async function finish() {
     setShowConfirmation(true)
   }
-  async function fecharPedido(name, email) {
+  async function fecharPedido(name, email, discount) {
     console.log('fechar pedido', name, email)
     const dados = await api.createOrder({
       name: name,
       clientId: 1,
       userId: 1,
-      discount: 0,
+      discount: discount,
       products: JSON.stringify(orderList),
     })
 
@@ -174,7 +174,7 @@ export default function Checkout() {
         </Grid>
 
         <Grid xs={6} md={6}>
-          <Item style={{ minHeight: '65vh' }}>
+          <Item style={{ minHeight: '45vh' }}>
             <ProductCard
               product={produto}
               setQuantidade={setQuantidade}
@@ -188,7 +188,7 @@ export default function Checkout() {
           </Item>
         </Grid>
         <Grid xs={6} md={6}>
-          <Item style={{ minHeight: '65vh', background: '#fbfbec' }}>
+          <Item style={{ minHeight: '70vh', background: '#fbfbec' }}>
             <h3>CUPON NÃO FISCAL</h3>
             <CheckboxList removeItems={removeItems} listData={orderList} />
           </Item>
@@ -215,6 +215,7 @@ export default function Checkout() {
       {showConfirmation ? (
         <Confirmation
           open={showConfirmation}
+          totalOrder={totalOrder}
           fecharPedido={fecharPedido}
           cancel={handleConfirmation}
         />

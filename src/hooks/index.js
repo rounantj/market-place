@@ -36,7 +36,8 @@ export class API {
   }
 
   async deleteProduct(payload) {
-    const result = await RebootApi.post('/product', payload, {
+    console.log(this.token)
+    const result = await RebootApi.delete('/product/' + payload.id, payload, {
       headers: { authorization: this.token },
     })
     return result
@@ -57,7 +58,7 @@ export class API {
   }
 
   async deleteClient(payload) {
-    const result = await RebootApi.post('/client', payload, {
+    const result = await RebootApi.delete('/product/', payload, {
       headers: { authorization: this.token },
     })
     return result

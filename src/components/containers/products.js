@@ -42,6 +42,13 @@ export default function Products() {
     handleModal()
   }
 
+  async function deleteProduct(product) {
+    const data = await api.deleteProduct(product)
+    console.log(data)
+    getProductList()
+    handleModal()
+  }
+
   async function updateProduct(product) {
     const data = await api.updateProduct(product)
     console.log(data)
@@ -124,6 +131,7 @@ export default function Products() {
         <SublinhedModal
           product={product}
           createProduct={createProduct}
+          deleteProduct={deleteProduct}
           updateProduct={updateProduct}
           handleModal={handleModal}
         />
